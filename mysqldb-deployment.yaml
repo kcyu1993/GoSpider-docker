@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yaml
+    kompose.version: 1.2.0 (99f88ef)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysqldb
+  name: mysqldb
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mysqldb
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: dolphin
+        image: mysql:5.7
+        name: GoSpider-mysqldb
+        ports:
+        - containerPort: 3307
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysqldb-claim0
+        - mountPath: /etc/mysql/conf.d
+          name: mysqldb-claim1
+      restartPolicy: Always
+      volumes:
+      - name: mysqldb-claim0
+        persistentVolumeClaim:
+          claimName: mysqldb-claim0
+      - name: mysqldb-claim1
+        persistentVolumeClaim:
+          claimName: mysqldb-claim1
+status: {}

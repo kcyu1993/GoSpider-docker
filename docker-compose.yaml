@@ -13,9 +13,9 @@ services:
       container_name: "GoSpider-mysqldb"
       image: mysql:5.7
       ports: 
-        - "3306:3306"
+        - "3307:3307"
       environment: 
-        - MYSQL_ROOT_PASSWORD=459527502
+        - MYSQL_ROOT_PASSWORD=dolphin
       volumes:
         - $HOME/mydocker/mysql/data:/var/lib/mysql
         - $HOME/mydocker/mysql/conf:/etc/mysql/conf.d
